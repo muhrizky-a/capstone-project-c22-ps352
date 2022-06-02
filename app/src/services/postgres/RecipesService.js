@@ -1,11 +1,17 @@
 const { Pool } = require('pg');
-const { nanoid } = require('nanoid');
+var admin = require("firebase-admin");
+const Firestore = require('firebase-admin/firestore');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
+var serviceAccount = require("../../../credentials/credentials.json")
 
 class RecipesService {
   constructor() {
     this._pool = new Pool();
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)
+    });
+    this._firestore = Firestore.getFirestore();
   }
 
   async addRecipe({ name, description, ingredients, steps }) {
@@ -24,28 +30,21 @@ class RecipesService {
   }
 
   async getRecipes() {
-    const query = {
-      text: 'SELECT * FROM recipes',
-    };
+    const snapshots = await this._firestore.collection('recipes').get();
 
-    let result = await this._pool.query(query);
-
-    return result.rows;
+    return snapshots.docs;
   }
 
   async getRecipeById(id) {
-    const query = {
-      text: 'SELECT * FROM recipes WHERE recipes.id = $1',
-      values: [id],
-    };
+    const doc = await this._firestore.collection('recipes').doc(id).get();
+    console.log(doc);
 
-    let result = await this._pool.query(query);
 
-    if (!result.rowCount) {
+    if (!doc.exists) {
       throw new NotFoundError('Resep tidak ditemukan');
     }
 
-    return result.rows[0];
+    return doc;
   }
 
   async editRecipeById(id, { name, description, ingredients, steps }) {

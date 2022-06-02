@@ -28,7 +28,22 @@ class RecipesHandler {
   }
 
   async getRecipesHandler() {
-    const recipes = await this._service.getRecipes();
+    let recipes = await this._service.getRecipes();
+
+    recipes = recipes.map((e) => {
+      const recipe = e["_fieldsProto"];
+      const documentId = e._ref._path.segments[1];
+
+      const { name, ingredients } = recipe;
+      const newIngredients = ingredients.arrayValue.values.map((i) => i.stringValue);
+
+      return {
+        id: documentId,
+        name: name.stringValue,
+        ingredients: newIngredients,
+      }
+    });
+
     return {
       status: 'success',
       data: {
@@ -41,20 +56,18 @@ class RecipesHandler {
     const { id } = request.params;
     const recipe = await this._service.getRecipeById(id);
 
-    const {
-      name, description, ingredients, steps, image,
-    } = recipe;
+    const { _fieldsProto } = recipe;
+
+    const name = _fieldsProto.name.stringValue;
+    const ingredients = _fieldsProto.ingredients.arrayValue.values.map((i) => i.stringValue);
 
     return {
       status: 'success',
       data: {
         recipe: {
-          id: recipe.id,
+          id,
           name,
-          description,
           ingredients,
-          steps,
-          // imageUrl: image ? `${request.headers['x-forwarded-proto'] || request.server.info.protocol}://${request.info.host}/upload/images/${image}` : image,
         },
       },
     };
