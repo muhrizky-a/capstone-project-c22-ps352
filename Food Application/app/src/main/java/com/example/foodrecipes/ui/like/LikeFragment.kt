@@ -7,26 +7,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.foodrecipes.R
+import com.example.foodrecipes.databinding.AccountFragmentBinding
+import com.example.foodrecipes.databinding.LikeFragmentBinding
+import com.example.foodrecipes.ui.account.AccountViewModel
 
 class LikeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = LikeFragment()
-    }
+    private var _binding: LikeFragmentBinding? = null
 
-    private lateinit var viewModel: LikeViewModel
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.like_fragment, container, false)
+    ): View {
+        val likeViewModel =
+            ViewModelProvider(this).get(LikeViewModel::class.java)
+
+        _binding = LikeFragmentBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+
+        likeViewModel.text.observe(viewLifecycleOwner) {
+        }
+        return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LikeViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

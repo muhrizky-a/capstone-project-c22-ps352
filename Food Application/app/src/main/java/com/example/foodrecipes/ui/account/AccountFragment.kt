@@ -6,27 +6,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.foodrecipes.R
+import com.example.foodrecipes.databinding.AccountFragmentBinding
 
 class AccountFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AccountFragment()
-    }
+    private var _binding: AccountFragmentBinding? = null
 
-    private lateinit var viewModel: AccountViewModel
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.account_fragment, container, false)
+    ): View {
+        val accountViewModel =
+            ViewModelProvider(this).get(AccountViewModel::class.java)
+
+        _binding = AccountFragmentBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+
+        accountViewModel.text.observe(viewLifecycleOwner) {
+        }
+        return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

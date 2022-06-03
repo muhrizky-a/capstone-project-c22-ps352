@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.foodrecipes.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_like"
+        android:name="com.example.foodrecipes.ui.like.LikeFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/like_fragment" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.foodrecipes.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_account"
+        android:name="com.example.foodrecipes.ui.account.AccountFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/account_fragment" />
 </navigation>

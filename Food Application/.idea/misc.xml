@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/account_fragment.xml" value="0.18802083333333333" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/fragment_dashboard.xml" value="0.18802083333333333" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/fragment_home.xml" value="0.75" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/fragment_notifications.xml" value="0.18802083333333333" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/like_fragment.xml" value="0.1" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18802083333333333" />
       </map>
     </option>
