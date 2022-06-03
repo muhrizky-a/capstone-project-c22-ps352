@@ -15,18 +15,20 @@ class RecipesService {
   }
 
   async addRecipe({ name, description, ingredients, steps }) {
-    const query = {
-      text: 'INSERT INTO recipes (name, description, ingredients, steps) VALUES($1, $2, $3, $4) RETURNING id',
-      values: [name, description, ingredients, steps],
+    const data = {
+      name,
+      description,
+      ingredients,
+      steps,
     };
 
-    const result = await this._pool.query(query);
+    const result = await this._firestore.collection('recipes').add(data);
 
-    if (!result.rows[0].id) {
+    if (!result.id) {
       throw new InvariantError('Resep gagal ditambahkan');
     }
 
-    return result.rows[0].id;
+    return result.id;
   }
 
   async getRecipes() {
@@ -37,8 +39,6 @@ class RecipesService {
 
   async getRecipeById(id) {
     const doc = await this._firestore.collection('recipes').doc(id).get();
-    console.log(doc);
-
 
     if (!doc.exists) {
       throw new NotFoundError('Resep tidak ditemukan');

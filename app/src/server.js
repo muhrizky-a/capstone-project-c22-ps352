@@ -5,11 +5,16 @@ const ClientError = require('./exceptions/ClientError');
 
 // recipes
 const recipes = require('./api/recipes');
-const RecipesService = require('./services/postgres/RecipesService');
+const RecipesService = require('./services/gcp/RecipesService');
 const RecipesValidator = require('./validator/recipes');
+
+// storage
+const storage = require('./api/storage');
+const StorageService = require('./services/gcp/StorageService');
 
 const init = async () => {
   const recipesService = new RecipesService();
+  const storageService = new StorageService();
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -27,6 +32,12 @@ const init = async () => {
       options: {
         service: recipesService,
         validator: RecipesValidator,
+      },
+    },
+    {
+      plugin: storage,
+      options: {
+        service: storageService,
       },
     },
   ]);

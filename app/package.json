@@ -14,6 +14,7 @@
   "author": "rizki",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^6.0.1",
     "@hapi/hapi": "^20.2.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",

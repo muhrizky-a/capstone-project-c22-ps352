@@ -6,8 +6,6 @@ class RecipesHandler {
     this.postRecipeHandler = this.postRecipeHandler.bind(this);
     this.getRecipesHandler = this.getRecipesHandler.bind(this);
     this.getRecipeByIdHandler = this.getRecipeByIdHandler.bind(this);
-    this.putRecipeByIdHandler = this.putRecipeByIdHandler.bind(this);
-    this.deleteRecipeByIdHandler = this.deleteRecipeByIdHandler.bind(this);
   }
 
   async postRecipeHandler(request, h) {
@@ -34,13 +32,16 @@ class RecipesHandler {
       const recipe = e["_fieldsProto"];
       const documentId = e._ref._path.segments[1];
 
-      const { name, ingredients } = recipe;
+      const { name, description, ingredients, steps } = recipe;
       const newIngredients = ingredients.arrayValue.values.map((i) => i.stringValue);
+      const newSteps = steps.arrayValue.values.map((i) => i.stringValue);
 
       return {
         id: documentId,
         name: name.stringValue,
+        name: description.stringValue,
         ingredients: newIngredients,
+        steps: newSteps,
       }
     });
 
@@ -59,7 +60,9 @@ class RecipesHandler {
     const { _fieldsProto } = recipe;
 
     const name = _fieldsProto.name.stringValue;
+    const description = _fieldsProto.name.stringValue;
     const ingredients = _fieldsProto.ingredients.arrayValue.values.map((i) => i.stringValue);
+    const steps = _fieldsProto.steps.arrayValue.values.map((i) => i.stringValue);
 
     return {
       status: 'success',
@@ -67,30 +70,11 @@ class RecipesHandler {
         recipe: {
           id,
           name,
+          description,
           ingredients,
+          steps,
         },
       },
-    };
-  }
-
-  async putRecipeByIdHandler(request) {
-    this._validator.validateRecipePayload(request.payload);
-
-    const { id } = request.params;
-    await this._service.editRecipeById(id, request.payload);
-
-    return {
-      status: 'success',
-      message: 'Resep berhasil diperbarui',
-    };
-  }
-
-  async deleteRecipeByIdHandler(request) {
-    const { id } = request.params;
-    await this._service.deleteRecipeById(id);
-    return {
-      status: 'success',
-      message: 'Resep berhasil dihapus',
     };
   }
 }

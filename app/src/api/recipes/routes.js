@@ -14,16 +14,6 @@ const routes = (handler) => [
     path: '/recipes/{id}',
     handler: handler.getRecipeByIdHandler,
   },
-  {
-    method: 'PUT',
-    path: '/recipes/{id}',
-    handler: handler.putRecipeByIdHandler,
-  },
-  {
-    method: 'DELETE',
-    path: '/recipes/{id}',
-    handler: handler.deleteRecipeByIdHandler,
-  },
 ];
 
 module.exports = routes;
