@@ -31,8 +31,17 @@ class RecipesService {
     return result.id;
   }
 
-  async getRecipes() {
-    const snapshots = await this._firestore.collection('recipes').get();
+  async getRecipes(request) {
+    const { name } = request.query;
+    const recipesRef = this._firestore.collection('recipes');
+
+    if (name) {
+      const snapshots = await recipesRef.get();
+
+      return snapshots.docs;
+    }
+
+    const snapshots = await recipesRef.get();
 
     return snapshots.docs;
   }

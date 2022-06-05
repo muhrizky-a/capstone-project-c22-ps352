@@ -25,8 +25,8 @@ class RecipesHandler {
     return response;
   }
 
-  async getRecipesHandler() {
-    let recipes = await this._service.getRecipes();
+  async getRecipesHandler(request) {
+    let recipes = await this._service.getRecipes(request);
 
     recipes = recipes.map((e) => {
       const recipe = e["_fieldsProto"];
@@ -39,11 +39,23 @@ class RecipesHandler {
       return {
         id: documentId,
         name: name.stringValue,
-        name: description.stringValue,
+        description: description.stringValue,
         ingredients: newIngredients,
         steps: newSteps,
       }
-    });
+    })
+
+    if (request.query.name) {
+      recipes = recipes.filter((e) => {
+
+        const { name } = e;
+
+        return name
+          .toLowerCase()
+          .includes(request.query.name.toLowerCase());
+      });
+    }
+
 
     return {
       status: 'success',
