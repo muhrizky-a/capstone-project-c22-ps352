@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Food Recipes</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_like">Like</string>
     <string name="title_account">account</string>
+    <string name="try_our_new_features">Try our New Features</string>
+    <string name="title_search">Search</string>
+    <string name="scan_image">Scan Image</string>
+    <string name="search_recipes">Search recipes</string>
 </resources>

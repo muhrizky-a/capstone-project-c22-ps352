@@ -29,6 +29,7 @@ class AccountFragment : Fragment() {
 
 
         accountViewModel.text.observe(viewLifecycleOwner) {
+            binding.textAccount.text = it
         }
         return root
     }
