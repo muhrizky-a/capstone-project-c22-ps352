@@ -1,0 +1,8 @@
+Flask==2.1.2
+tensorflow==2.8.0
+google-cloud-storage==2.3.0
+gcsfs==2022.5.0
+gunicorn==20.1.0
+# numpy==1.22.4 #latest numpy
+python-decouple==3.6
+numpy==1.21.6 #numpy for python 3.7
