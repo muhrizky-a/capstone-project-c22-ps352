@@ -4,12 +4,12 @@ FROM node:14.17.0-alpine
 WORKDIR /app
 
 # Install app dependencies
-COPY /app/package.json /app
+COPY /package.json /app
 
 RUN npm install
 
-COPY ./app /app
+COPY . /app
 
-EXPOSE 8080
+EXPOSE 5000
 
 CMD ["npm","start"]

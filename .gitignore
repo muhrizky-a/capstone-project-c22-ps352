@@ -1,6 +1,7 @@
-api-recipe/.env
+# api-recipe/.env
 api-recipe/package-lock.json
 api-recipe/node_modules/
 api-recipe/credentials/
-api-predict/.env
+api-recipe-backup/
+# api-predict/.env
 api-predict/credentials/
