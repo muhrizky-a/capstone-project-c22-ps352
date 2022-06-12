@@ -1,5 +1,6 @@
 package com.example.foodrecipes.ui
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +9,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodrecipes.R
+import com.example.foodrecipes.data.api.response.PredResponse
+import com.example.foodrecipes.data.api.response.RecipesResponse
 import com.example.foodrecipes.databinding.ActivityMainBinding
+import com.example.foodrecipes.ui.analyze.AnalyzeActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.fab.setOnClickListener{
+            val addIntent = Intent(this, AnalyzeActivity::class.java)
+            startActivity(addIntent)
+
+        }
 
         setupNavigation()
     }
@@ -38,4 +47,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+
 }

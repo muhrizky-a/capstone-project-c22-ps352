@@ -3,17 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.1" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/drawable/ic_baseline_image_search_24.xml" value="0.158" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.158" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/drawable/ic_capture.xml" value="0.158" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/drawable/ic_switch_camera.xml" value="0.158" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/drawable/transparent_bg.xml" value="0.1" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/account_fragment.xml" value="0.18802083333333333" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/activity_analyze.xml" value="0.25" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/activity_camera.xml" value="0.17395833333333333" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/activity_detail_recipe.xml" value="0.25" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/activity_pred_search.xml" value="0.18" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/fragment_dashboard.xml" value="0.18802083333333333" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/fragment_notifications.xml" value="0.18802083333333333" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/item_recipies.xml" value="0.22" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/like_fragment.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/search_fragment.xml" value="0.18802083333333333" />
+        <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/layout/search_fragment.xml" value="0.13903743315508021" />
         <entry key="..\:/Bangkit/Capstone/Food Application/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18802083333333333" />
       </map>
     </option>

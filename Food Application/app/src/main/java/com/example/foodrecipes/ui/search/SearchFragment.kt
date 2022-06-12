@@ -1,6 +1,7 @@
 package com.example.foodrecipes.ui.search
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodrecipes.data.api.response.RecipesItem
 import com.example.foodrecipes.databinding.SearchFragmentBinding
 import com.example.foodrecipes.ui.adapter.RecipesAdapter
+import com.example.foodrecipes.ui.detail.DetailRecipeActivity
 
 class SearchFragment : Fragment() {
 
@@ -67,6 +69,9 @@ class SearchFragment : Fragment() {
             adapter.setRecipes(it)
             adapter.setOnItemClickCallback(object : RecipesAdapter.OnItemClickCallback{
                 override fun onItemClicked(data: RecipesItem) {
+                    val intentToDetail = Intent(this@SearchFragment.context,DetailRecipeActivity::class.java)
+                    intentToDetail.putExtra(DetailRecipeActivity.DETAIL,data)
+                    startActivity(intentToDetail)
                     Toast.makeText(this@SearchFragment.context,data.name +" Clicked",Toast.LENGTH_SHORT).show()
                 }
             })

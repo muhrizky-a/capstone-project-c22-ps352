@@ -7,4 +7,11 @@
     <string name="title_search">Search</string>
     <string name="scan_image">Scan Image</string>
     <string name="search_recipes">Search recipes</string>
+    <string name="analyze">Analyze</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="image">Image</string>
+    <string name="ingredients">Ingredients :</string>
+    <string name="steps">Steps :</string>
+    <string name="pred">  %1$s </string>
 </resources>
