@@ -2,7 +2,7 @@
 
 Capstone Project Bangkit 2022
 
-Recapin is a mobile-based app to help 
+Recapin is a mobile-based app to help people identify the food and display the recipe.
 
 # ML-Path
 - Lalu Achmad Ardi Adnim  - Universitas Mataram
