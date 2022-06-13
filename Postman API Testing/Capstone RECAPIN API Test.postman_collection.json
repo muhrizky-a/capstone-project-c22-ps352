@@ -1,0 +1,610 @@
+{
+	"info": {
+		"_postman_id": "2e7f949f-8e4f-43cf-ae47-2946e46f7d7b",
+		"name": "Capstone Recipe API Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register User (Firebase)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 200 value', () => {\r",
+									"   pm.response.to.have.status(200);\r",
+									"}); \r",
+									"\r",
+									"pm.test('response body data should have idToken and refreshToken property and not equal to empty', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { idToken, refreshToken } = responseJson;\r",
+									" \r",
+									"    pm.expect(idToken).to.not.equals('');\r",
+									"    pm.expect(refreshToken).to.not.equals('');\r",
+									" \r",
+									"    pm.environment.set('idToken', idToken);\r",
+									"    pm.environment.set('refreshToken', refreshToken);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"{{email}}\",\r\n    \"password\":\"{{password}}\",\r\n    \"returnSecureToken\":\"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={{APIKeyFirebase}}",
+							"protocol": "https",
+							"host": [
+								"identitytoolkit",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"v1",
+								"accounts:signUp"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKeyFirebase}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In (Firebase)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 200 value', () => {\r",
+									"   pm.response.to.have.status(200);\r",
+									"}); \r",
+									"\r",
+									"pm.test('response body data should have idToken and refreshToken property and not equal to empty', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { idToken, refreshToken } = responseJson;\r",
+									" \r",
+									"    pm.expect(idToken).to.not.equals('');\r",
+									"    pm.expect(refreshToken).to.not.equals('');\r",
+									" \r",
+									"    pm.environment.set('idToken', idToken);\r",
+									"    pm.environment.set('refreshToken', refreshToken);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"{{email}}\",\r\n    \"password\":\"{{password}}\",\r\n    \"returnSecureToken\":\"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{APIKeyFirebase}}",
+							"protocol": "https",
+							"host": [
+								"identitytoolkit",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"v1",
+								"accounts:signInWithPassword"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKeyFirebase}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token (Firebase)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 200 value', () => {\r",
+									"   pm.response.to.have.status(200);\r",
+									"}); \r",
+									"\r",
+									"\r",
+									"pm.test('response body data should have idToken and refreshToken property and not equal to empty', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { id_token, refresh_token } = responseJson;\r",
+									" \r",
+									"    pm.expect(id_token).to.not.equals('');\r",
+									"    pm.expect(refresh_token).to.not.equals('');\r",
+									" \r",
+									"    pm.environment.set('idToken', id_token);\r",
+									"    pm.environment.set('refreshToken', refresh_token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\":\"refresh_token\",\r\n    \"refresh_token\":\"{{refreshToken}}\",\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://securetoken.googleapis.com/v1/token?key={{APIKeyFirebase}}",
+							"protocol": "https",
+							"host": [
+								"securetoken",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"v1",
+								"token"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKeyFirebase}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recipes",
+			"item": [
+				{
+					"name": "Adding Recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 200 value', () => {\r",
+									"   pm.response.to.have.status(201);\r",
+									"}); \r",
+									"\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"}); \r",
+									"\r",
+									"pm.test('response body should an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.ownProperty('status');\r",
+									"    pm.expect(responseJson.status).to.equals('success');\r",
+									"    pm.expect(responseJson).to.ownProperty('message');\r",
+									"    pm.expect(responseJson.message).to.equals('Resep berhasil ditambahkan');\r",
+									"    pm.expect(responseJson).to.ownProperty('data');\r",
+									"    pm.expect(responseJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data should have recipeId property and not equal to empty', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									" \r",
+									"    pm.expect(data).to.ownProperty('recipeId');\r",
+									"    pm.expect(data.recipeId).to.not.equals('');\r",
+									" \r",
+									"    pm.environment.set('recipeId', data.recipeId);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{idToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"id-resep\",\r\n    \"image\": \"link-gambar-makanan.jpg\",\r\n    \"name\": \"Nama Makanan\",\r\n    \"description\": \"Deskripsi Resep\",\r\n    \"ingredients\": [\"Bahan 1\", \"Bahan 2\"],\r\n    \"steps\": [\"Step 1\", \"Step 2\"]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{recipeAPI-URL}}/recipes",
+							"host": [
+								"{{recipeAPI-URL}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding Recipe with Bad Recipe Payload",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let badRecipePayloads = pm.environment.get('badRecipePayloads');  // ini akan bertipe Array\r",
+									" \r",
+									"if (!badRecipePayloads || badRecipePayloads.length === 0) {\r",
+									"    // inisialisasi dengan sejumlah recipe yang tidak sesuai\r",
+									"    badRecipePayloads = [\r",
+									"        { ingredients: [\"Ikan\", \"Tepung\"], description: \"Resep untuk berbuka\" },\r",
+									"\r",
+									"        { name: 1, ingredients: [\"Ikan\", \"Tepung\"], description: \"Resep untuk berbuka\", },\r",
+									"        { name: 1, description: \"Resep untuk berbuka\", },\r",
+									"        { name: 1, ingredients: [1, \"Tepung\"], description: \"Resep untuk berbuka\", },\r",
+									"        { name: 1, ingredients: [\"Ikan\", \"Tepung\"] },\r",
+									"        { name: 1, ingredients: [\"Ikan\", \"Tepung\"], steps: [\"Bersihkan Ikan\", \"Goreng selama 10 menit\"] },\r",
+									"        { name: 1, ingredients: [\"Ikan\", \"Tepung\"], steps: [\"Bersihkan Ikan\", 1] },\r",
+									"        { name: 1, ingredients: [\"Ikan\", \"Tepung\"], description: true }\r",
+									"    ]\r",
+									"}\r",
+									" \r",
+									"let currentBadRecipePayload = badRecipePayloads.shift();  // hapus index 0, geser sisanya\r",
+									"pm.environment.set('currentBadRecipePayload', JSON.stringify(currentBadRecipePayload));\r",
+									"pm.environment.set('badRecipePayloads', badRecipePayloads);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 400 value', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									" \r",
+									"pm.test('response Content-Type header should have application/json; charset=utf-8 value', () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"}); \r",
+									" \r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									" \r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson.status).to.equals('fail');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"    pm.expect(responseJson.message).to.be.ok;\r",
+									"})\r",
+									"\r",
+									"const repeatRequestUntilDatasetEmpty = () => {\r",
+									"    const badRecipePayloads = pm.environment.get('badRecipePayloads');\r",
+									"    if(badRecipePayloads && badRecipePayloads.length > 0) {\r",
+									"        postman.setNextRequest('Adding Recipe with Bad Recipe Payload');\r",
+									"    }\r",
+									"}\r",
+									"repeatRequestUntilDatasetEmpty();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{currentBadRecipePayload}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{recipeAPI-URL}}/recipes",
+							"host": [
+								"{{recipeAPI-URL}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting All Recipes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 200 value', () => {\r",
+									"   pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"   pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should an object', () => {\r",
+									"   const responseJson = pm.response.json();\r",
+									"   pm.expect(responseJson).to.be.an('object');\r",
+									"}); \r",
+									"\r",
+									"pm.test('response body should have the correct property and value', () => {\r",
+									"  const responseJson = pm.response.json();\r",
+									"   pm.expect(responseJson).to.have.ownProperty('status');\r",
+									"   pm.expect(responseJson.status).to.equals('success');\r",
+									"   pm.expect(responseJson).to.have.ownProperty('data');\r",
+									"   pm.expect(responseJson.data).to.be.an('object');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{recipeAPI-URL}}/recipes",
+							"host": [
+								"{{recipeAPI-URL}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting Specified Recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 200 value', () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"}); \r",
+									"\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"   pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"   const responseJson = pm.response.json();\r",
+									"   pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have the correct property and value', () => {\r",
+									"   const responseJson = pm.response.json();\r",
+									" \r",
+									"   pm.expect(responseJson).to.have.ownProperty('status');\r",
+									"   pm.expect(responseJson.status).to.equals('success');\r",
+									"   pm.expect(responseJson).to.have.ownProperty('data');\r",
+									"   pm.expect(responseJson.data).to.be.an('object');\r",
+									"}); \r",
+									"\r",
+									"pm.test('response body data should contain recipe object', () => {\r",
+									"   const responseJson = pm.response.json();\r",
+									"   const { data } = responseJson;\r",
+									" \r",
+									"   pm.expect(data).to.have.ownProperty('recipe');\r",
+									"   pm.expect(data.recipe).to.be.an('object');\r",
+									"}); \r",
+									"\r",
+									"pm.test('note object should contain correct value for id, name, description, ingredients, and steps property', () => {\r",
+									"   const responseJson = pm.response.json();\r",
+									"   const { data: { recipe } } = responseJson;\r",
+									"\r",
+									"   const expectedId = pm.environment.get('recipeId');\r",
+									"   const expectedName = 'Ikan Bakar';\r",
+									"   const expectedDescription = 'Resep untuk berbuka';\r",
+									"   const expectedIngredients = ['Ikan', 'Tepung'];\r",
+									"   const expectedSteps = ['Bersihkan Ikan', 'Goreng selama 10 menit'];\r",
+									"\r",
+									"   pm.expect(recipe).to.have.ownProperty('id');\r",
+									"   pm.expect(recipe.id).to.equals(expectedId);\r",
+									"   pm.expect(recipe).to.have.ownProperty('name');\r",
+									"   //pm.expect(recipe.name).to.equals(expectedName);\r",
+									"   pm.expect(recipe).to.have.ownProperty('description');\r",
+									"   //pm.expect(recipe.description).to.eql(expectedDescription);\r",
+									"   pm.expect(recipe).to.have.ownProperty('ingredients');\r",
+									"   //pm.expect(recipe.ingredients).to.eql(expectedIngredients);\r",
+									"   pm.expect(recipe).to.have.ownProperty('steps');\r",
+									"   //pm.expect(recipe.steps).to.eql(expectedSteps);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{recipeAPI-URL}}/recipes/{{recipeId}}",
+							"host": [
+								"{{recipeAPI-URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{recipeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Predict Recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response status code should have 200 value', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response Content-Type header should have application/json value', () => {\r",
+									"   pm.expect(pm.response.headers.get('Content-Type')).to.equals(\"application/json; charset=utf-8\");\r",
+									"})\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"   const responseJson = pm.response.json();\r",
+									"   pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"   const responseJson = pm.response.json();\r",
+									" \r",
+									"   pm.expect(responseJson).to.have.ownProperty('status');\r",
+									"   pm.expect(responseJson.status).to.equals('success');\r",
+									"   pm.expect(responseJson).to.have.ownProperty('message');\r",
+									"   pm.expect(responseJson.message).to.equals('Resep berhasil diperbarui');\r",
+									"});\r",
+									"\r",
+									"pm.test('when request the updated recipe', () => {\r",
+									"    const recipeId = pm.environment.get('recipeId');\r",
+									"    const getRequest = {\r",
+									"        url: `http://localhost:5000/recipes/${recipeId}`,\r",
+									"        method: 'GET',\r",
+									"    };\r",
+									"    pm.sendRequest(getRequest, (error, response) => {\r",
+									"        if(!error) {\r",
+									"            pm.test('then the updated recipe should contain the latest data', () => {\r",
+									"                const responseJson = response.json();\r",
+									"                const { data: { recipe } } = responseJson;\r",
+									" \r",
+									"                const expectedName = 'Ikan Bakar Revisi';\r",
+									"                const expectedDescription = 'Resep untuk berbuka';\r",
+									"                const expectedIngredients = [\"Ikan\", \"Tepung\"];\r",
+									"                const expectedSteps = ['Bersihkan Ikan', 'Goreng selama 10 menit'];\r",
+									" \r",
+									"                pm.expect(recipe.name).to.equals(expectedName);\r",
+									"                pm.expect(recipe.description).to.equals(expectedDescription);\r",
+									"                pm.expect(recipe.ingredients).to.eql(expectedIngredients);\r",
+									"                pm.expect(recipe.steps).to.eql(expectedSteps);\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/E:/KULIAH BSI/Bangkit 2022/[Capstone]/ML/[recapin model]/bakso-catur.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{predictAPI-URL}}/predict",
+							"host": [
+								"{{predictAPI-URL}}"
+							],
+							"path": [
+								"predict"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
