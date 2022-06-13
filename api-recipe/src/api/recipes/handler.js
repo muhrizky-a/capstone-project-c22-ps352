@@ -9,10 +9,12 @@ class RecipesHandler {
   }
 
   async postRecipeHandler(request, h) {
-    this._validator.validateRecipePayload(request.payload);
-    const { name, description, ingredients, steps } = request.payload;
+    const { authorization } = request.headers;
 
-    const recipeId = await this._service.addRecipe({ name, description, ingredients, steps });
+    this._validator.validateRecipePayload(request.payload);
+    const { id, name, description, image, ingredients, steps } = request.payload;
+
+    const recipeId = await this._service.addRecipe({ id, name, description, image, ingredients, steps, authorization });
 
     const response = h.response({
       status: 'success',

@@ -11,11 +11,12 @@ from decouple import config
 app = Flask(__name__)
 
 #Setup env
-config('GOOGLE_APPLICATION_CREDENTIALS')
+GOOGLE_APPLICATION_CREDENTIALS = config('GOOGLE_APPLICATION_CREDENTIALS')
 BUCKET_NAME = config('BUCKET_NAME')
+APP_DIR = config('APP_DIR')
 
 def get_classes():
-    storage_client = storage.Client()
+    storage_client = storage.Client.from_service_account_json(GOOGLE_APPLICATION_CREDENTIALS)
 
     bucket = storage_client.bucket(BUCKET_NAME)
     blob = bucket.blob('classes.txt')
@@ -25,14 +26,22 @@ def get_classes():
     
     return data
 
+@app.route("/", methods=['GET'])
+def hello():
+    return json.dumps(
+        {
+            "status": "success",
+            "message": "Hello Packet"
+        })
+
 @app.route("/predict", methods=['POST'])
 def predict():
     # Request form data (File)
     file = request.files['file']
-
+    
     if file:
         # Convert to List
-        image = './tmp/' + file.filename
+        image = file.filename
         file.save(image)
 
         img_height = 180
@@ -62,4 +71,4 @@ def predict():
 
 # APP Run
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=config('PORT'), debug=True)

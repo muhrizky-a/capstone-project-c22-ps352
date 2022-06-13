@@ -2,32 +2,42 @@ var admin = require("firebase-admin");
 const Firestore = require('firebase-admin/firestore');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const AuthService = require("./AuthService");
 
 class RecipesService {
   constructor() {
-    admin.initializeApp({
-      credential: admin.credential.cert(
-        process.env.CREDENTIALS
-      )
-    });
+    admin.initializeApp(
+      {
+        credential: admin.credential.cert(
+          process.env.CREDENTIALS
+        ),
+      }
+    );
     this._firestore = Firestore.getFirestore();
+
+    this._auth = new AuthService(admin);
   }
 
-  async addRecipe({ name, description, ingredients, steps }) {
+  async addRecipe({ id = null, name, description, image = null, ingredients, steps, authorization }) {
     const data = {
       name,
       description,
+      image,
       ingredients,
       steps,
     };
 
-    const result = await this._firestore.collection('recipes').add(data);
+    const isAuthorized = await this._auth.authorize(authorization);
 
-    if (!result.id) {
+    let result = await this._firestore.collection('recipes');
+
+    result = (id) ? await result.doc(id).set(data) : await result.add(data);
+
+    if (!result.id && !id) {
       throw new InvariantError('Resep gagal ditambahkan');
     }
 
-    return result.id;
+    return result.id || id;
   }
 
   async getRecipes(request) {

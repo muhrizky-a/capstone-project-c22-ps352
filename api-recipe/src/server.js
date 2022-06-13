@@ -54,6 +54,7 @@ const init = async () => {
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
       });
+      // console.log(request.response);
     }
 
     // jika bukan ClientError, lanjutkan dengan response sebelumnya (tanpa terintervensi)

@@ -5,3 +5,4 @@ api-recipe/credentials/
 api-recipe-backup/
 # api-predict/.env
 api-predict/credentials/
+.vscode
