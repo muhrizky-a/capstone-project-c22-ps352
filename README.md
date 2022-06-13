@@ -25,7 +25,23 @@ service cloud.firestore {
 }
 ```
 
-## Setup Firebase Firestore
-- Create Firebase project <a href="https://console.firebase.google.com/">here</a>.
-- Open Project settings > General, save `Web API Key` for Register User (Postman).
-- Open Project settings > Service accounts, create and save the Service Account for credentials.
+## Deploy to Cloud Run
+- Open Google Cloud Shell https://console.cloud.google.com/welcome?project=<PROJECT_ID>&cloudshell=true , then clone the github repository
+```bash
+git clone https://github.com/muhrizky-a/capstone-project-c22-ps352 --branch api
+```
+- Move to the cloned directory, and create the ```credentials``` folder
+```bash
+cd capstone-project-c22-ps352/api-recipe
+mkdir credentials
+```
+- Upload the credential.json that you downloaded earlier, rename the file, and move to the ```credentials``` folder.
+```bash
+mv <credentials>.json credentials-firebase.json
+cp credentials-firebase.json credentials/
+```
+- Deploy the Recipe API via Cloud Run
+```bash
+gcloud run deploy
+```
+
